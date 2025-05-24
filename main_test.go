@@ -38,8 +38,18 @@ func TestCheckDraw(t *testing.T) {
 	}
 }
 
-func TestPlayGame(t *testing.T) {
-	// This test is more of an integration test and would typically be run manually.
+func TestBoundsChecking(t *testing.T) {
 	game := NewGame()
-	PlayGame(game)
+	if game.MakeMove(-1, 0) {
+		t.Error("Should not allow negative row")
+	}
+	if game.MakeMove(0, -1) {
+		t.Error("Should not allow negative column")
+	}
+	if game.MakeMove(3, 0) {
+		t.Error("Should not allow row >= 3")
+	}
+	if game.MakeMove(0, 3) {
+		t.Error("Should not allow column >= 3")
+	}
 }
