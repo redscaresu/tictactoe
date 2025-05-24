@@ -45,6 +45,7 @@ func (g *Game) MakeMove(row, col int) bool {
 
 // CheckWin checks if there is a winner.
 func (g *Game) CheckWin() string {
+	fmt.Println("Current board state:", g.board)
 	// Check rows and columns
 	for i := 0; i < 3; i++ {
 		if g.board[i][0] != " " && g.board[i][0] == g.board[i][1] && g.board[i][1] == g.board[i][2] {

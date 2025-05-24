@@ -16,10 +16,11 @@ func TestMakeMove(t *testing.T) {
 
 func TestCheckWin(t *testing.T) {
 	game := NewGame()
-	game.MakeMove(0, 0)
-	game.MakeMove(0, 1)
-	game.MakeMove(1, 1)
-	game.MakeMove(0, 2)
+	game.MakeMove(0, 0) // X at (0,0)
+	game.MakeMove(1, 0) // O at (1,0)
+	game.MakeMove(0, 1) // X at (0,1)
+	game.MakeMove(1, 1) // O at (1,1)
+	game.MakeMove(0, 2) // X at (0,2) - X wins top row
 	if game.CheckWin() != "X" {
 		t.Error("Failed to detect win for X")
 	}
