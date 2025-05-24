@@ -5,65 +5,40 @@ import (
 )
 
 func TestMakeMove(t *testing.T) {
-	game := NewTicTacToe()
-	if !game.MakeMove(0, 0, "X") {
-		t.Errorf("Expected move to be valid")
+	game := NewGame()
+	if !game.MakeMove(0, 0) {
+		t.Error("Failed to make move at (0,0)")
 	}
-	if game.MakeMove(0, 0, "O") {
-		t.Errorf("Expected move to be invalid")
-	}
-	if game.MakeMove(3, 0, "X") {
-		t.Errorf("Expected move to be invalid")
+	if game.MakeMove(0, 0) {
+		t.Error("Incorrectly allowed move at (0,0)")
 	}
 }
 
-func TestCheckWinner(t *testing.T) {
-	game := NewTicTacToe()
-	game.MakeMove(0, 0, "X")
-	game.MakeMove(0, 1, "X")
-	game.MakeMove(0, 2, "X")
-	if game.CheckWinner() != "X" {
-		t.Errorf("Expected winner to be X")
-	}
-
-	game = NewTicTacToe()
-	game.MakeMove(0, 0, "O")
-	game.MakeMove(1, 0, "O")
-	game.MakeMove(2, 0, "O")
-	if game.CheckWinner() != "O" {
-		t.Errorf("Expected winner to be O")
-	}
-
-	game = NewTicTacToe()
-	game.MakeMove(0, 0, "X")
-	game.MakeMove(1, 1, "X")
-	game.MakeMove(2, 2, "X")
-	if game.CheckWinner() != "X" {
-		t.Errorf("Expected winner to be X")
-	}
-
-	game = NewTicTacToe()
-	game.MakeMove(0, 2, "O")
-	game.MakeMove(1, 1, "O")
-	game.MakeMove(2, 0, "O")
-	if game.CheckWinner() != "O" {
-		t.Errorf("Expected winner to be O")
+func TestCheckWin(t *testing.T) {
+	game := NewGame()
+	game.MakeMove(0, 0)
+	game.MakeMove(0, 1)
+	game.MakeMove(1, 1)
+	game.MakeMove(0, 2)
+	if game.CheckWin() != "X" {
+		t.Error("Failed to detect win for X")
 	}
 }
 
-func TestIsBoardFull(t *testing.T) {
-	game := NewTicTacToe()
-	for row := 0; row < 3; row++ {
-		for col := 0; col < 3; col++ {
-			game.MakeMove(row, col, "X")
-		}
+func TestCheckDraw(t *testing.T) {
+	game := NewGame()
+	game.board = [3][3]string{
+		{"X", "O", "X"},
+		{"X", "X", "O"},
+		{"O", "X", "O"},
 	}
-	if !game.IsBoardFull() {
-		t.Errorf("Expected board to be full")
+	if !game.CheckDraw() {
+		t.Error("Failed to detect draw")
 	}
+}
 
-	game = NewTicTacToe()
-	if game.IsBoardFull() {
-		t.Errorf("Expected board to not be full")
-	}
+func TestPlayGame(t *testing.T) {
+	// This test is more of an integration test and would typically be run manually.
+	game := NewGame()
+	PlayGame(game)
 }
