@@ -8,7 +8,7 @@ Context:
         As an engineer working with the application, I want the application to be easy to use and understand,
         so I can maintain and enhance it over time.
 
-        Context: Implement in Python 1.24
+        Context: Implement in Go 1.24
             The application will be written in the go 1.24.2.  Assume a baseline of go 1.24.
 
         Context: Use docstrings
